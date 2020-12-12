@@ -1,3 +1,8 @@
+//Вешаем слушатели.
+document.querySelector('.random__panel > button').addEventListener('click', randomColor);
+document.querySelector('.random-width > input').addEventListener('input', sizeValue);
+document.querySelector('.random-height > input').addEventListener('input', sizeValue);
+
 function sizeValue() {
     let width = document.getElementById("width").value;
     let height = document.getElementById("height").value;
