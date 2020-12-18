@@ -1,17 +1,22 @@
 window.onload = function() {
     document.querySelector('.bottom_panel > .plus').addEventListener('click', plusRow);
-    document.querySelector('.bottom_panel > .minus').addEventListener('click', minusRow);
+    document.querySelector('.bottom_panel > .minus').addEventListener('click', minusRowCheker);
 
     document.querySelector('.right_panel > .plus').addEventListener('click', plusСolumn);
     document.querySelector('.right_panel > .minus').addEventListener('click', minusСolumn);
     const tbody = document.querySelector("tbody")
 
-    array = [
-        [1,2,3,4],
-        [5,6,7,8],
-        [9,10,11,12],
-        [13,14,15,16]
-    ];
+    if (localStorage.getItem(`array`) == null) {
+        array = [
+            ["1","","","",""],
+            ["","","","",""],
+            ["","","","",""],
+            ["","","","",""],
+            ["","","","",""]
+        ];
+    } else {
+        array = JSON.parse(localStorage.getItem(`array`))
+    }
 
     let N = ''
     let amountRow = array.length
@@ -25,10 +30,12 @@ window.onload = function() {
             for (j = 0; j < array[i].length; j++) {
                 var td = document.createElement('td')
                 var script = document.createElement('script')
-                td.innerHTML = `<input id="` + i + `_` + j + `" type="text" value="` + array[i][j] + `">`
+                td.innerHTML = `<input readonly class="editable" id="` + i + `_` + j + `" type="text" value="` + array[i][j] + `">`
                 script.innerHTML = `
                 document.getElementById("`+ i + `_` + j +`").addEventListener('input', function() {
                     array[`+ i + `][`+ j +`] = document.getElementById("`+ i + `_` + j +`").value
+                    array = localStorage.setItem('array', JSON.stringify(array))
+                    array = JSON.parse(localStorage.getItem(\`array\`))
                 });
                 `
                 tr.appendChild(td)
@@ -36,10 +43,36 @@ window.onload = function() {
             }
             tbody.appendChild(tr)
         }
+        array = localStorage.setItem('array', JSON.stringify(array))
+        array = JSON.parse(localStorage.getItem(`array`))
     }
     tableBuilder()
 
-    minusRowCheker()
+    function minusRowCheker() {
+
+        voidRow = "true"
+        lastRow = array.length - 1
+        for (y = 0; y < array[lastRow].length; y++) {
+            if (array[lastRow][y] != "") {
+                voidRow = "false"
+            }
+        }
+        if (voidRow === "true") {
+            array.pop()
+            tableBuilder()
+        }
+        if (voidRow === "false") {
+            if (array.length > 1) {
+                if (confirm("Строка содержит данные! Удалить?")) {
+                    array.pop()
+                    tableBuilder()
+                    amountСolumn = array[0].length
+                }
+            } else {
+                console.log("Невозможно удалить первый столбец таблицы!")
+            }
+        }
+    }
 
     function minusСolumnCheker() {
         p = -1
@@ -86,11 +119,9 @@ window.onload = function() {
     function plusRow() {
         for (i = 0; i < array[0].length; i++) {
             newRow.push('')
-            console.log(array[0].length)
         }
         array.push(newRow)
         amountRow = array.length
-        console.log(array)
         newRow = []
         tableBuilder()
     }
@@ -99,9 +130,8 @@ window.onload = function() {
         if (amountRow > 1) {
             array.pop()
             amountRow = array.length
-            console.log(amountRow)
         } else {
-            alert("Nope!")
+            alert("Невозможно удалить первую строку таблицы!")
         }
         tableBuilder()
     }
@@ -110,7 +140,6 @@ window.onload = function() {
         for ( i = 0; i < array.length; i++) {
             array[i].push(N)
         }
-        console.log(array)
         amountСolumn = array[0].length
         tableBuilder()
     }
@@ -119,17 +148,23 @@ window.onload = function() {
         if (amountСolumn > 1) {
             minusСolumnCheker()
         } else {
-            alert("Nope!")
+            console.log("Невозможно удалить первый столбец таблицы!")
         }
     }
 }
 
+window.addEventListener("load", ()=>{
+    const inputs = document.querySelectorAll("input.editable");
+    for(let input of inputs){
+        input.addEventListener("dblclick", (e) =>{
+            e.target.removeAttribute("readonly");
+        })
+        input.addEventListener("touchstart", (e) => {
+            e.target.removeAttribute("readonly");
+        })
 
-// for (i = 0; i < array[0].length; i++) {
-//     rowNumber = array[i]
-//     for (k = 0; k < rowNumber.length; k++)
-//         point = rowNumber[k]
-//     console.log(rowNumber[k])
-//     tbody.innerHTML += `<div>` + point + `</div>`
-// }
-// document.getElementById("`+ i + `_` + j +`").addEventListener('click', function() {console.log("11")});
+        input.addEventListener("blur", (e) => {
+            e.target.setAttribute("readonly", "true")
+        })
+    }
+})
