@@ -45,6 +45,20 @@ window.onload = function() {
         }
         array = localStorage.setItem('array', JSON.stringify(array))
         array = JSON.parse(localStorage.getItem(`array`))
+
+        const inputs = document.querySelectorAll("input.editable");
+        for(let input of inputs){
+            input.addEventListener("dblclick", (e) =>{
+                e.target.removeAttribute("readonly");
+            })
+            input.addEventListener("touchstart", (e) => {
+                e.target.removeAttribute("readonly");
+            })
+
+            input.addEventListener("blur", (e) => {
+                e.target.setAttribute("readonly", "true")
+            })
+        }
     }
     tableBuilder()
 
@@ -152,19 +166,3 @@ window.onload = function() {
         }
     }
 }
-
-window.addEventListener("load", ()=>{
-    const inputs = document.querySelectorAll("input.editable");
-    for(let input of inputs){
-        input.addEventListener("dblclick", (e) =>{
-            e.target.removeAttribute("readonly");
-        })
-        input.addEventListener("touchstart", (e) => {
-            e.target.removeAttribute("readonly");
-        })
-
-        input.addEventListener("blur", (e) => {
-            e.target.setAttribute("readonly", "true")
-        })
-    }
-})
