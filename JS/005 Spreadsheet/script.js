@@ -3,7 +3,7 @@ window.onload = function() {
     document.querySelector('.bottom_panel > .minus').addEventListener('click', minusRowCheker);
 
     document.querySelector('.right_panel > .plus').addEventListener('click', plusСolumn);
-    document.querySelector('.right_panel > .minus').addEventListener('click', minusСolumn);
+    document.querySelector('.right_panel > .minus').addEventListener('click', minusСolumnCheker);
     const tbody = document.querySelector("tbody")
 
     if (localStorage.getItem(`array`) == null) {
@@ -89,44 +89,49 @@ window.onload = function() {
     }
 
     function minusСolumnCheker() {
-        p = -1
-        g = 0
-        voidColumn = "true"
 
-        for (k = 0; k < array.length; k++) {
-            if (array[k][array[k].length -1] != "") {
-                voidColumn = "false"
-            }
-        }
+        if (amountСolumn > 1) {
+            p = -1
+            g = 0
+            voidColumn = "true"
 
-        if (voidColumn === "false") {
-            ppp()
-        } else {
-            for ( i = 0; i < array.length; i++) {
-                array[i].pop()
-            }
-            amountСolumn = array[0].length
-            tableBuilder()
-            return
-        }
-
-        function ppp() {
-            if (p < array.length) {
-                p = p + 1
-                if (array[p][array[p].length -1] != "") {
-                    if (confirm("Столбец содержит данные! Удалить?")) {
-                        for ( i = 0; i < array.length; i++) {
-                            array[i].pop()
-                        }
-                        amountСolumn = array[0].length
-                        tableBuilder()
-                        return
-                    } else {
-                        return
-                    }
+            for (k = 0; k < array.length; k++) {
+                if (array[k][array[k].length -1] != "") {
+                    voidColumn = "false"
                 }
-                ppp()
             }
+
+            if (voidColumn === "false") {
+                ppp()
+            } else {
+                for ( i = 0; i < array.length; i++) {
+                    array[i].pop()
+                }
+                amountСolumn = array[0].length
+                tableBuilder()
+                return
+            }
+
+            function ppp() {
+                if (p < array.length) {
+                    p = p + 1
+                    if (array[p][array[p].length -1] != "") {
+                        if (confirm("Столбец содержит данные! Удалить?")) {
+                            for ( i = 0; i < array.length; i++) {
+                                array[i].pop()
+                            }
+                            amountСolumn = array[0].length
+                            tableBuilder()
+                            return
+                        } else {
+                            return
+                        }
+                    }
+                    ppp()
+                }
+            }
+        } else {
+            console.log("Невозможно удалить первый столбец таблицы!")
         }
     }
 
@@ -156,13 +161,5 @@ window.onload = function() {
         }
         amountСolumn = array[0].length
         tableBuilder()
-    }
-
-    function minusСolumn() {
-        if (amountСolumn > 1) {
-            minusСolumnCheker()
-        } else {
-            console.log("Невозможно удалить первый столбец таблицы!")
-        }
     }
 }
