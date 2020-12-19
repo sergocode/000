@@ -1,0 +1,67 @@
+textarea {
+    resize: none;
+}
+
+body, .comments {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.comments {
+    width: 600px;
+}
+
+.comments__item {
+    border: black 1px solid;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.comments__item_header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 10px 0;
+}
+
+.form {
+    width: 620px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px 0 0 0;
+    border-top: #EEEEEE 2px solid;
+}
+
+.form__inputs {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+input {
+    font-size: 14px;
+    margin: 20px 0 0 0;
+    border: black 1px solid;
+    width: 100px;
+    height: 20px;
+}
+
+button {
+    margin: 0 0 0 40%;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100px;
+    height: 25px;
+}
+
+textarea {
+    padding: 5px;
+    font-size: 15px;
+    margin: 10px 0 10px 0;
+    border: black 1px solid;
+    width: 610px;
+    height: 60px;
+}

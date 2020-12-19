@@ -16,5 +16,3 @@ foreach ($query as $counts);
     <div class="hits">Страница была загружена <? echo $counts['counts']; ?> раз. Текущее время <? echo date("H:i") ?>.</div>
 </body>
 </html>
-
-<!--UPDATE counts SET counts = counts + 1-->
