@@ -32,5 +32,7 @@ input[type=button], select {
 }
 
 .response {
+    font-weight: bold;
+    font-size: 24px;
     margin-top: 50px;
 }
