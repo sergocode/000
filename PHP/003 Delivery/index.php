@@ -12,7 +12,7 @@
        <select name="city" id="cities">
            <?
            foreach ($data as $city) {
-               echo "{$data} => <option>{$city}</option> ";
+               echo "{$data} => <option>{$city}</option>";
            }
            ?>
        </select>

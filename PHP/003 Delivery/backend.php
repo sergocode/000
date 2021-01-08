@@ -5,7 +5,7 @@ $url = 'exercise.develop.maximaster.ru/service/city/';
 $cache = 'cache.json';
 $default = 'Москва';
 
-if (file_exists($cache) && date("d.m.Y") === date("d.m.Y", filectime($cache))) {
+if (file_exists($cache) && date("d.m.Y") === date("d.m.Y", filemtime($cache))) {
     // Файл $cache в последний раз был изменен сегодня! Не обращаемся к серверу!
     $data = file_get_contents($cache);
     $data = json_decode($data, true);
