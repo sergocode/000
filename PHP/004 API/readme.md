@@ -1,1 +1,1 @@
-![Иллюстрация к проекту](https://github.com/sergocode/000/tree/master/PHP/004%20API/prev.gif)
+![Иллюстрация к проекту](https://github.com/sergocode/000/blob/master/PHP/004%20API/prev.gif)
